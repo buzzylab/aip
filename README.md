@@ -1,5 +1,10 @@
 # Arabic in PHP (AIP)
 
+[![Latest Stable Version](https://poser.pugx.org/buzzylab/aip/v/stable)](https://packagist.org/packages/buzzylab/aip)
+[![Total Downloads](https://poser.pugx.org/buzzylab/aip/downloads)](https://packagist.org/packages/buzzylab/aip)
+[![Latest Unstable Version](https://poser.pugx.org/buzzylab/aip/v/unstable)](https://packagist.org/packages/buzzylab/aip)
+[![License](https://poser.pugx.org/buzzylab/aip/license)](https://packagist.org/packages/buzzylab/aip)
+
 A simple PHP API extension that's provide arabic tools for PHP . [https://github.com/buzzylab/aip](https://github.com/buzzylab/aip)
 
 > Note: AIP package is a built on the great library [Ar-PHP](http://www.ar-php.org/) (v4.0.0) which is developed by [Khaled Al-Sham'aa](http://www.ar-php.org/about-php-arabic.html).
