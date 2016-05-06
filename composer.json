@@ -1,0 +1,32 @@
+{
+    "name": "buzzylab/aip",
+    "type": "library",
+    "description": "Arabic tools for PHP",
+    "keywords": [
+        "php",
+        "arabic"
+    ],
+    "homepage": "http://buzzylab.com",
+    "license": "GLPL",
+    "authors": [
+        {
+            "name": "Maher El Gamil",
+            "email": "maherbusnes@gmail.com",
+            "homepage": "http://maherelgamil.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.5|~7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Buzzylab\\Aip\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.0.0-dev"
+        }
+    }
+}
