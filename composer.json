@@ -1,13 +1,13 @@
 {
     "name": "buzzylab/aip",
     "type": "library",
-    "description": "Arabic tools for PHP",
+    "description": "A simple PHP API extension that's provide arabic tools for PHP",
     "keywords": [
         "php",
         "arabic"
     ],
     "homepage": "http://buzzylab.com",
-    "license": "GLPL",
+    "license": "GPLv3",
     "authors": [
         {
             "name": "Maher El Gamil",
@@ -22,11 +22,6 @@
     "autoload": {
         "psr-4": {
             "Buzzylab\\Aip\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "5.0.0-dev"
         }
     }
 }
