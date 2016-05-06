@@ -94,7 +94,6 @@ echo "<h4>النص الكامل</h4>$highlighted";
 - [Features](#features)
 - [Installation](#Installation)
 - [Change log](#change-log)
-- [Security](#security)
 - [Issues](#issues)
 - [Contributing](#contributing)
 - [Credits & inspirations](#credits--inspirations)
