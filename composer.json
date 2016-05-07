@@ -7,7 +7,7 @@
         "arabic"
     ],
     "homepage": "http://buzzylab.com",
-    "license": "GPLv3",
+    "license": "MIT",
     "authors": [
         {
             "name": "Maher El Gamil",
@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php" : "~5.5|~7.0"
+        "php" : ">=5.5"
     },
     "autoload": {
         "psr-4": {

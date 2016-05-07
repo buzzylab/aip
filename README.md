@@ -107,5 +107,4 @@ library, a big thank you goes out to [Khaled Al-Sham'aa](http://www.ar-php.org/a
 
 
 ### License
-The AIP is open-sourced software licensed under the GNU General Public License Version 3 (GPLv3).
-Please see [License File](LICENSE.md) for more information.
+The AIP is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
