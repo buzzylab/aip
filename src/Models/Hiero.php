@@ -67,9 +67,7 @@ class Hiero extends Model
     * @return resource Image resource identifier
     * @author Khaled Al-Sham'aa <khaled@ar-php.org>
     */
-    public function str2graph(
-        $word, $dir = 'ltr', $lang = 'en', $red = null, $green = null, $blue = null
-    ) {
+    public function str2graph($word, $dir = 'ltr', $lang = 'en', $red = null, $green = null, $blue = null) {
         if ($this->_language == 'phoenician') {
             define(MAXH, 40);
             define(MAXW, 50);
