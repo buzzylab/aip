@@ -12,7 +12,7 @@ A simple PHP API extension that's provide arabic tools for PHP . [https://github
 
 ## Contents
 - [Features](#features)
-- [Installation](#Installation)
+- [Installation](#installation)
 - [Change log](#change-log)
 - [Issues](#issues)
 - [Contributing](#contributing)
