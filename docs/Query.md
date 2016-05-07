@@ -39,7 +39,7 @@
              $keyword = str_replace('\"', '"', $keyword);
 
              $obj->setStrFields('headline');
-             $obj->setMode($_GET['mode']);
+             $obj->setQueryMode($_GET['mode']);
 
              $strCondition = $Arabic->getWhereCondition($keyword);
          } else {
