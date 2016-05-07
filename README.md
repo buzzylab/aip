@@ -21,7 +21,7 @@ A simple PHP API extension that's provide arabic tools for PHP . [https://github
 
 ## Features
 * [Arabic text auto summarization](https://github.com/buzzylab/aip/blob/master/docs/Summarize.md).
-* Advanced Arabic search (stem based)
+* [Advanced Arabic search (stem based)](https://github.com/buzzylab/aip/blob/master/docs/Query.md).
 * Render Arabic text (PDF, GD, SWF)
 * Present dates in Arabic or Hijri
 * Convert Hijri date into Unix timestamp
