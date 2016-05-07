@@ -38,10 +38,10 @@
              $keyword = @$_GET['keyword'];
              $keyword = str_replace('\"', '"', $keyword);
 
-             $obj->setStrFields('headline');
-             $obj->setQueryMode($_GET['mode']);
+             $arabic->setStrFields('headline');
+             $arabic->setQueryMode($_GET['mode']);
 
-             $strCondition = $Arabic->getWhereCondition($keyword);
+             $strCondition = $arabic->getWhereCondition($keyword);
          } else {
              $strCondition = '1';
          }

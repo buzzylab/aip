@@ -22,22 +22,22 @@ A simple PHP API extension that's provide arabic tools for PHP . [https://github
 ## Features
 * [Arabic text auto summarization](https://github.com/buzzylab/aip/blob/master/docs/Summarize.md).
 * [Advanced Arabic search (stem based)](https://github.com/buzzylab/aip/blob/master/docs/Query.md).
-* Render Arabic text (PDF, GD, SWF)
-* Present dates in Arabic or Hijri
-* Convert Hijri date into Unix timestamp
-* Parse Arabic textual datetime into timestamp
+* [Render Arabic text (PDF, GD, SWF)](https://github.com/buzzylab/aip/blob/master/docs/Glyphs.md).
+* [Present dates in Arabic or Hijri](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
+* [Convert Hijri date into Unix timestamp](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
+* [Parse Arabic textual datetime into timestamp](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
 * Transliterate English words in Arabic
 * Transliterate Arabic words in English
 * Spell numbers in Arabic idiom
 * Phonetically alike Arabic words
-* Arabic character set converter
-* Arabic character set auto detection
+* [Arabic character set converter](https://github.com/buzzylab/aip/blob/master/docs/Charset.md).
+* [Arabic character set auto detection](https://github.com/buzzylab/aip/blob/master/docs/Charset.md).
 * Identify Arabic in multi language documents
 * Identify names & places in Arabic text
-* Guess gender of Arabic names
+* [Guess gender of Arabic names](https://github.com/buzzylab/aip/blob/master/docs/Gender.md).
 * Convert keyboard language programmatically
 * Calculate the time of Muslim prayer
-* Compress string using Huffman-like coding
+* [Compress string using Huffman-like coding](https://github.com/buzzylab/aip/blob/master/docs/Compress.md).
 * Standardize Arabic text
 * Arabic stemmer
 * Arabic Cities List
@@ -109,9 +109,3 @@ library, a big thank you goes out to [Khaled Al-Sham'aa](http://www.ar-php.org/a
 ### License
 The AIP is open-sourced software licensed under the GNU General Public License Version 3 (GPLv3).
 Please see [License File](LICENSE.md) for more information.
-
-
-[ico-version]: https://img.shields.io/badge/packagist-v0.0.1-orange.svg
-[ico-license]: https://img.shields.io/badge/licence-GPLv3-brightgreen.svg
-
-[link-packagist]: https://packagist.org/packages/buzzylab/aip
