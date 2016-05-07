@@ -26,23 +26,25 @@ A simple PHP API extension that's provide arabic tools for PHP . [https://github
 * [Present dates in Arabic or Hijri](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
 * [Convert Hijri date into Unix timestamp](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
 * [Parse Arabic textual datetime into timestamp](https://github.com/buzzylab/aip/blob/master/docs/Date.md).
-* Transliterate English words in Arabic
-* Transliterate Arabic words in English
-* Spell numbers in Arabic idiom
-* Phonetically alike Arabic words
+* [Transliterate English words in Arabic](https://github.com/buzzylab/aip/blob/master/docs/Transliteration.md).
+* [Transliterate Arabic words in English](https://github.com/buzzylab/aip/blob/master/docs/Transliteration.md).
+* [Spell numbers in Arabic idiom](https://github.com/buzzylab/aip/blob/master/docs/Numbers.md).
+* [Phonetically alike Arabic words](https://github.com/buzzylab/aip/blob/master/docs/Soundex.md).
 * [Arabic character set converter](https://github.com/buzzylab/aip/blob/master/docs/Charset.md).
 * [Arabic character set auto detection](https://github.com/buzzylab/aip/blob/master/docs/Charset.md).
-* Identify Arabic in multi language documents
-* Identify names & places in Arabic text
+* [Identify Arabic in multi language documents](https://github.com/buzzylab/aip/blob/master/docs/Identifier.md).
+* [Identify names & places in Arabic text](https://github.com/buzzylab/aip/blob/master/docs/Identifier.md).
 * [Guess gender of Arabic names](https://github.com/buzzylab/aip/blob/master/docs/Gender.md).
-* Convert keyboard language programmatically
-* Calculate the time of Muslim prayer
+* [Convert keyboard language programmatically](https://github.com/buzzylab/aip/blob/master/docs/KeySwap.md).
+* [Calculate the time of Muslim prayer](https://github.com/buzzylab/aip/blob/master/docs/Salat.md).
 * [Compress string using Huffman-like coding](https://github.com/buzzylab/aip/blob/master/docs/Compress.md).
-* Standardize Arabic text
-* Arabic stemmer
+* [Standardize Arabic text](https://github.com/buzzylab/aip/blob/master/docs/Standard.md).
+* [Arabic stemmer](https://github.com/buzzylab/aip/blob/master/docs/Stemmer.md).
 * Arabic Cities List
 * Informations about Arabic countries
-* Arabic text normalisation
+* [Arabic text normalisation](https://github.com/buzzylab/aip/blob/master/docs/Normalise.md).
+* [Translate English words into Hieroglyphics](https://github.com/buzzylab/aip/blob/master/docs/Hiero.md).
+* [Translate English words into Phoenician](https://github.com/buzzylab/aip/blob/master/docs/Hiero.md).
 
 
 
