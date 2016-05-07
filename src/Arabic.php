@@ -41,21 +41,6 @@ class Arabic
      * @var array
      */
     private $_lazyLoading   = [];
-    
-    /**
-     * @ignore
-     */
-    public $myObject;
-    
-    /**
-     * @ignore
-     */
-    public $myClass;
-    
-    /**
-     * @ignore
-     */
-    public $myFile;
 
     /**
      * Arabic constructor.
@@ -271,7 +256,5 @@ class Arabic
     {
         $this->_inputCharset  = null;
         $this->_outputCharset = null;
-        $this->myObject      = null;
-        $this->myClass       = null;
     }
 }
