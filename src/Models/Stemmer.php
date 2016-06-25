@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
-
 namespace Buzzylab\Aip\Models;
 
 use Buzzylab\Aip\Model;
@@ -18,7 +17,7 @@ class Stemmer extends Model
     /**
      * @var string
      */
-    private $_verbPre  = 'وأسفلي';
+    private $_verbPre = 'وأسفلي';
 
     /**
      * @var string
@@ -33,7 +32,7 @@ class Stemmer extends Model
     /**
      * @var string
      */
-    private $_verbMaxPre  = 4;
+    private $_verbMaxPre = 4;
 
     /**
      * @var string
@@ -48,7 +47,7 @@ class Stemmer extends Model
     /**
      * @var string
      */
-    private $_nounPre  = 'ابفكلوأ';
+    private $_nounPre = 'ابفكلوأ';
 
     /**
      * @var string
@@ -63,7 +62,7 @@ class Stemmer extends Model
     /**
      * @var string
      */
-    private $_nounMaxPre  = 4;
+    private $_nounMaxPre = 4;
 
     /**
      * @var string
@@ -74,68 +73,70 @@ class Stemmer extends Model
      * @var string
      */
     private $_nounMinStem = 2;
-    
+
     /**
-     * Loads initialize values
+     * Loads initialize values.
      *
      * @ignore
-     */         
+     */
     public function __construct()
     {
-        $this->_verbMay = $this->_verbPre . $this->_verbPost;
-        $this->_nounMay = $this->_nounPre . $this->_nounPost;
+        $this->_verbMay = $this->_verbPre.$this->_verbPost;
+        $this->_nounMay = $this->_nounPre.$this->_nounPost;
     }
-    
+
     /**
-     * Get rough stem of the given Arabic word 
-     *      
+     * Get rough stem of the given Arabic word.
+     *
      * @param string $word Arabic word you would like to get its stem
-     *                    
+     *
      * @return string Arabic stem of the word
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function stem($word)
     {
         $nounStem = $this->roughStem(
-            $word, $this->_nounMay, $this->_nounPre, $this->_nounPost, 
+            $word, $this->_nounMay, $this->_nounPre, $this->_nounPost,
             $this->_nounMaxPre, $this->_nounMaxPost, $this->_nounMinStem
         );
         $verbStem = $this->roughStem(
-            $word, $this->_verbMay, $this->_verbPre, $this->_verbPost, 
+            $word, $this->_verbMay, $this->_verbPre, $this->_verbPost,
             $this->_verbMaxPre, $this->_verbMaxPost, $this->_verbMinStem
         );
-        
+
         if (mb_strlen($nounStem, 'UTF-8') < mb_strlen($verbStem, 'UTF-8')) {
             $stem = $nounStem;
         } else {
             $stem = $verbStem;
         }
-        
+
         return $stem;
     }
-    
+
     /**
-     * Get rough stem of the given Arabic word (under specific rules)
-     *      
-     * @param string  $word      Arabic word you would like to get its stem
-     * @param string  $notChars  Arabic chars those can't be in postfix or prefix
-     * @param string  $preChars  Arabic chars those may exists in the prefix
-     * @param string  $postChars Arabic chars those may exists in the postfix
-     * @param integer $maxPre    Max prefix length
-     * @param integer $maxPost   Max postfix length
-     * @param integer $minStem   Min stem length
+     * Get rough stem of the given Arabic word (under specific rules).
+     *
+     * @param string $word      Arabic word you would like to get its stem
+     * @param string $notChars  Arabic chars those can't be in postfix or prefix
+     * @param string $preChars  Arabic chars those may exists in the prefix
+     * @param string $postChars Arabic chars those may exists in the postfix
+     * @param int    $maxPre    Max prefix length
+     * @param int    $maxPost   Max postfix length
+     * @param int    $minStem   Min stem length
      *
      * @return string Arabic stem of the word under giving rules
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
-    protected function roughStem (
+    protected function roughStem(
         $word, $notChars, $preChars, $postChars, $maxPre, $maxPost, $minStem
     ) {
         $right = -1;
-        $left  = -1;
-        $max   = mb_strlen($word, 'UTF-8');
-        
-        for ($i=0; $i < $max; $i++) {
+        $left = -1;
+        $max = mb_strlen($word, 'UTF-8');
+
+        for ($i = 0; $i < $max; $i++) {
             $needle = mb_substr($word, $i, 1, 'UTF-8');
             if (mb_strpos($notChars, $needle, 0, 'UTF-8') === false) {
                 if ($right == -1) {
@@ -144,24 +145,24 @@ class Stemmer extends Model
                 $left = $i;
             }
         }
-        
+
         if ($right > $maxPre) {
             $right = $maxPre;
         }
-        
+
         if ($max - $left - 1 > $maxPost) {
-            $left = $max - $maxPost -1;
+            $left = $max - $maxPost - 1;
         }
-        
-        for ($i=0; $i < $right; $i++) {
+
+        for ($i = 0; $i < $right; $i++) {
             $needle = mb_substr($word, $i, 1, 'UTF-8');
             if (mb_strpos($preChars, $needle, 0, 'UTF-8') === false) {
                 $right = $i;
                 break;
             }
         }
-        
-        for ($i=$max-1; $i>$left; $i--) {
+
+        for ($i = $max - 1; $i > $left; $i--) {
             $needle = mb_substr($word, $i, 1, 'UTF-8');
             if (mb_strpos($postChars, $needle, 0, 'UTF-8') === false) {
                 $left = $i;
@@ -170,7 +171,7 @@ class Stemmer extends Model
         }
 
         if ($left - $right >= $minStem) {
-            $stem = mb_substr($word, $right, $left-$right+1, 'UTF-8');
+            $stem = mb_substr($word, $right, $left - $right + 1, 'UTF-8');
         } else {
             $stem = null;
         }

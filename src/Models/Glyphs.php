@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
-
 namespace Buzzylab\Aip\Models;
 
 use Buzzylab\Aip\Model;
@@ -18,12 +17,12 @@ class Glyphs extends Model
     /**
      * @var null|string
      */
-    private $_glyphs   = null;
+    private $_glyphs = null;
 
     /**
      * @var null|string
      */
-    private $_hex      = null;
+    private $_hex = null;
 
     /**
      * @var null|string
@@ -38,19 +37,19 @@ class Glyphs extends Model
     /**
      * @var null|string
      */
-    private $_vowel    = null;
+    private $_vowel = null;
 
     /**
-     * Loads initialize values
+     * Loads initialize values.
      *
      * @ignore
-     */         
+     */
     public function __construct()
     {
-        $this->_prevLink  = '،؟؛ـئبتثجحخسشصضطظعغفقكلمنهي';
-        $this->_nextLink  = 'ـآأؤإائبةتثجحخدذرز';
+        $this->_prevLink = '،؟؛ـئبتثجحخسشصضطظعغفقكلمنهي';
+        $this->_nextLink = 'ـآأؤإائبةتثجحخدذرز';
         $this->_nextLink .= 'سشصضطظعغفقكلمنهوىي';
-        $this->_vowel     = 'ًٌٍَُِّْ';
+        $this->_vowel = 'ًٌٍَُِّْ';
 
         /*
          $this->_glyphs['ً']  = array('FE70','FE71');
@@ -62,9 +61,9 @@ class Glyphs extends Model
          $this->_glyphs['ّ']  = array('FE7C','FE7D');
          $this->_glyphs['ْ']  = array('FE7E','FE7E');
          */
-         
+
         $this->_glyphs = 'ًٌٍَُِّْٰ';
-        $this->_hex    = '064B064B064B064B064C064C064C064C064D064D064D064D064E064E';
+        $this->_hex = '064B064B064B064B064C064C064C064C064D064D064D064D064E064E';
         $this->_hex   .= '064E064E064F064F064F064F06500650065006500651065106510651';
         $this->_hex   .= '06520652065206520670067006700670';
 
@@ -107,41 +106,41 @@ class Glyphs extends Model
         // string using ANSI encoding in Notepad
         $this->_glyphs .= '';
         $this->_hex    .= '';
-        
+
         $this->_glyphs .= 'لآلألإلا';
         $this->_hex    .= 'FEF5FEF6FEF5FEF6FEF7FEF8FEF7FEF8FEF9FEFAFEF9FEFAFEFBFEFC';
         $this->_hex    .= 'FEFBFEFC';
     }
-    
+
     /**
-     * Get glyphs
-     * 
-     * @param string  $char Char
-     * @param integer $type Type
-     * 
+     * Get glyphs.
+     *
+     * @param string $char Char
+     * @param int    $type Type
+     *
      * @return string
-     */                                  
+     */
     protected function getGlyphs($char, $type)
     {
-
         $pos = mb_strpos($this->_glyphs, $char);
-        
+
         if ($pos > 49) {
-            $pos = ($pos-49)/2 + 49;
+            $pos = ($pos - 49) / 2 + 49;
         }
-        
-        $pos = $pos*16 + $type*4;
-        
+
+        $pos = $pos * 16 + $type * 4;
+
         return substr($this->_hex, $pos, 4);
     }
-    
+
     /**
-     * Convert Arabic Windows-1256 charset string into glyph joining in UTF-8 
-     * hexadecimals stream
-     *      
+     * Convert Arabic Windows-1256 charset string into glyph joining in UTF-8
+     * hexadecimals stream.
+     *
      * @param string $str Arabic string in Windows-1256 charset
-     *      
+     *
      * @return string Arabic glyph joining in UTF-8 hexadecimals stream
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     protected function preConvert($str)
@@ -149,8 +148,8 @@ class Glyphs extends Model
         $crntChar = null;
         $prevChar = null;
         $nextChar = null;
-        $output   = '';
-        
+        $output = '';
+
         $_temp = mb_strlen($str);
 
         $chars = [];
@@ -163,69 +162,69 @@ class Glyphs extends Model
         for ($i = $max - 1; $i >= 0; $i--) {
             $crntChar = $chars[$i];
             $prevChar = ' ';
-            
+
             if ($i > 0) {
                 $prevChar = $chars[$i - 1];
             }
-            
+
             if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false) {
                 $prevChar = $chars[$i - 2];
                 if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false) {
                     $prevChar = $chars[$i - 3];
                 }
             }
-            
-            $Reversed    = false;
-            $flip_arr    = ')]>}';
+
+            $Reversed = false;
+            $flip_arr = ')]>}';
             $ReversedChr = '([<{';
-            
+
             if ($crntChar && mb_strpos($flip_arr, $crntChar) !== false) {
                 $crntChar = $ReversedChr[mb_strpos($flip_arr, $crntChar)];
                 $Reversed = true;
             } else {
                 $Reversed = false;
             }
-            
-            if ($crntChar && !$Reversed 
+
+            if ($crntChar && !$Reversed
                 && (mb_strpos($ReversedChr, $crntChar) !== false)
             ) {
                 $crntChar = $flip_arr[mb_strpos($ReversedChr, $crntChar)];
             }
-            
+
             if (ord($crntChar) < 128) {
                 $output  .= $crntChar;
                 $nextChar = $crntChar;
                 continue;
             }
-            
-            if ($crntChar == 'ل' && isset($chars[$i + 1]) 
+
+            if ($crntChar == 'ل' && isset($chars[$i + 1])
                 && (mb_strpos('آأإا', $chars[$i + 1]) !== false)
             ) {
                 continue;
             }
-            
+
             if ($crntChar && mb_strpos($this->_vowel, $crntChar) !== false) {
-                if (isset($chars[$i + 1]) 
-                    && (mb_strpos($this->_nextLink, $chars[$i + 1]) !== false) 
+                if (isset($chars[$i + 1])
+                    && (mb_strpos($this->_nextLink, $chars[$i + 1]) !== false)
                     && (mb_strpos($this->_prevLink, $prevChar) !== false)
                 ) {
-                    $output .= '&#x' . $this->getGlyphs($crntChar, 1) . ';';
+                    $output .= '&#x'.$this->getGlyphs($crntChar, 1).';';
                 } else {
-                    $output .= '&#x' . $this->getGlyphs($crntChar, 0) . ';';
+                    $output .= '&#x'.$this->getGlyphs($crntChar, 0).';';
                 }
                 continue;
             }
-            
+
             $form = 0;
-            
-            if (($prevChar == 'لا' || $prevChar == 'لآ' || $prevChar == 'لأ' 
-                || $prevChar == 'لإ' || $prevChar == 'ل') 
+
+            if (($prevChar == 'لا' || $prevChar == 'لآ' || $prevChar == 'لأ'
+                || $prevChar == 'لإ' || $prevChar == 'ل')
                 && (mb_strpos('آأإا', $crntChar) !== false)
             ) {
                 if (mb_strpos($this->_prevLink, $chars[$i - 2]) !== false) {
                     $form++;
                 }
-                
+
                 if (mb_strpos($this->_vowel, $chars[$i - 1])) {
                     $output .= '&#x';
                     $output .= $this->getGlyphs($crntChar, $form).';';
@@ -236,77 +235,81 @@ class Glyphs extends Model
                 $nextChar = $prevChar;
                 continue;
             }
-            
+
             if ($prevChar && mb_strpos($this->_prevLink, $prevChar) !== false) {
                 $form++;
             }
-            
+
             if ($nextChar && mb_strpos($this->_nextLink, $nextChar) !== false) {
                 $form += 2;
             }
-            
-            $output  .= '&#x' . $this->getGlyphs($crntChar, $form) . ';';
+
+            $output  .= '&#x'.$this->getGlyphs($crntChar, $form).';';
             $nextChar = $crntChar;
         }
-        
-        // from Arabic Presentation Forms-B, Range: FE70-FEFF, 
+
+        // from Arabic Presentation Forms-B, Range: FE70-FEFF,
         // file "UFE70.pdf" (in reversed order)
         // into Arabic Presentation Forms-A, Range: FB50-FDFF, file "UFB50.pdf"
         // Example: $output = str_replace('&#xFEA0;&#xFEDF;', '&#xFCC9;', $output);
         // Lam Jeem
 
         $output = $this->decodeEntities($output, $exclude = ['&']);
+
         return $output;
     }
-    
+
     /**
-     * Regression analysis calculate roughly the max number of character fit in 
+     * Regression analysis calculate roughly the max number of character fit in
      * one A4 page line for a given font size.
-     *      
-     * @param integer $font Font size
-     *      
-     * @return integer Maximum number of characters per line
+     *
+     * @param int $font Font size
+     *
+     * @return int Maximum number of characters per line
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function a4MaxChars($font)
     {
-        $x = 381.6 - 31.57 * $font + 1.182 * pow($font, 2) - 0.02052 * 
+        $x = 381.6 - 31.57 * $font + 1.182 * pow($font, 2) - 0.02052 *
              pow($font, 3) + 0.0001342 * pow($font, 4);
+
         return floor($x - 2);
     }
-    
+
     /**
-     * Calculate the lines number of given Arabic text and font size that will 
-     * fit in A4 page size
-     *      
-     * @param string  $str  Arabic string you would like to split it into lines
-     * @param integer $font Font size
-     *                    
-     * @return integer Number of lines for a given Arabic string in A4 page size
+     * Calculate the lines number of given Arabic text and font size that will
+     * fit in A4 page size.
+     *
+     * @param string $str  Arabic string you would like to split it into lines
+     * @param int    $font Font size
+     *
+     * @return int Number of lines for a given Arabic string in A4 page size
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function a4Lines($str, $font)
     {
-        $str = str_replace(array("\r\n", "\n", "\r"), "\n", $str);
-        
-        $lines     = 0;
-        $chars     = 0;
-        $words     = explode(' ', $str);
-        $w_count   = count($words);
+        $str = str_replace(["\r\n", "\n", "\r"], "\n", $str);
+
+        $lines = 0;
+        $chars = 0;
+        $words = explode(' ', $str);
+        $w_count = count($words);
         $max_chars = $this->a4MaxChars($font);
-        
+
         for ($i = 0; $i < $w_count; $i++) {
             $w_len = mb_strlen($words[$i]) + 1;
-            
+
             if ($chars + $w_len < $max_chars) {
                 if (mb_strpos($words[$i], "\n") !== false) {
                     $words_nl = explode("\n", $words[$i]);
-                    
+
                     $nl_num = count($words_nl) - 1;
                     for ($j = 1; $j < $nl_num; $j++) {
                         $lines++;
                     }
-                    
+
                     $chars = mb_strlen($words_nl[$nl_num]) + 1;
                 } else {
                     $chars += $w_len;
@@ -317,46 +320,47 @@ class Glyphs extends Model
             }
         }
         $lines++;
-        
+
         return $lines;
     }
-    
+
     /**
-     * Convert Arabic Windows-1256 charset string into glyph joining in UTF-8 
-     * hexadecimals stream (take care of whole the document including English 
-     * sections as well as numbers and arcs etc...)
-     *                    
-     * @param string  $str       Arabic string in Windows-1256 charset
-     * @param integer $max_chars Max number of chars you can fit in one line
-     * @param boolean $hindo     If true use Hindo digits else use Arabic digits
-     *                    
+     * Convert Arabic Windows-1256 charset string into glyph joining in UTF-8
+     * hexadecimals stream (take care of whole the document including English
+     * sections as well as numbers and arcs etc...).
+     *
+     * @param string $str       Arabic string in Windows-1256 charset
+     * @param int    $max_chars Max number of chars you can fit in one line
+     * @param bool   $hindo     If true use Hindo digits else use Arabic digits
+     *
      * @return string Arabic glyph joining in UTF-8 hexadecimals stream (take
      *                care of whole document including English sections as well
      *                as numbers and arcs etc...)
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function utf8Glyphs($str, $max_chars = 50, $hindo = true)
     {
-        $str = str_replace(array("\r\n", "\n", "\r"), " \n ", $str);
-        $str = str_replace("\t", "        ", $str);
-        
-        $lines   = array();
-        $words   = explode(' ', $str);
+        $str = str_replace(["\r\n", "\n", "\r"], " \n ", $str);
+        $str = str_replace("\t", '        ', $str);
+
+        $lines = [];
+        $words = explode(' ', $str);
         $w_count = count($words);
         $c_chars = 0;
-        $c_words = array();
-        
-        $english  = array();
+        $c_words = [];
+
+        $english = [];
         $en_index = -1;
-        
-        $en_words = array();
-        $en_stack = array();
+
+        $en_words = [];
+        $en_stack = [];
 
         for ($i = 0; $i < $w_count; $i++) {
-            $pattern  = '/^(\n?)';
+            $pattern = '/^(\n?)';
             $pattern .= '[a-z\d\\/\@\#\$\%\^\&\*\(\)\_\~\"\'\[\]\{\}\;\,\|\-\.\:!]*';
             $pattern .= '([\.\:\+\=\-\!،؟]?)$/i';
-            
+
             if (preg_match($pattern, $words[$i], $matches)) {
                 if ($matches[1]) {
                     $words[$i] = mb_substr($words[$i], 1).$matches[1];
@@ -372,14 +376,14 @@ class Glyphs extends Model
                 $en_words[] = true;
             } elseif ($en_index != -1) {
                 $en_count = count($english);
-                
+
                 for ($j = 0; $j < $en_count; $j++) {
                     $words[$en_index + $j] = $english[$en_count - 1 - $j];
                 }
-                
+
                 $en_index = -1;
-                $english  = array();
-                
+                $english = [];
+
                 $en_words[] = false;
             } else {
                 $en_words[] = false;
@@ -388,7 +392,7 @@ class Glyphs extends Model
 
         if ($en_index != -1) {
             $en_count = count($english);
-            
+
             for ($j = 0; $j < $en_count; $j++) {
                 $words[$en_index + $j] = $english[$en_count - 1 - $j];
             }
@@ -398,45 +402,45 @@ class Glyphs extends Model
         if (isset($en_start)) {
             $last = true;
             $from = 0;
-            
+
             foreach ($en_words as $key => $value) {
                 if ($last !== $value) {
                     $to = $key - 1;
-                    array_push($en_stack, array($from, $to));
+                    array_push($en_stack, [$from, $to]);
                     $from = $key;
                 }
                 $last = $value;
             }
-            
-            array_push($en_stack, array($from, $key));
-            
-            $new_words = array();
-            
+
+            array_push($en_stack, [$from, $key]);
+
+            $new_words = [];
+
             while (list($from, $to) = array_pop($en_stack)) {
                 for ($i = $from; $i <= $to; $i++) {
                     $new_words[] = $words[$i];
                 }
             }
-            
+
             $words = $new_words;
         }
 
         for ($i = 0; $i < $w_count; $i++) {
             $w_len = mb_strlen($words[$i]) + 1;
-            
+
             if ($c_chars + $w_len < $max_chars) {
                 if (mb_strpos($words[$i], "\n") !== false) {
                     $words_nl = explode("\n", $words[$i]);
-                    
+
                     array_push($c_words, $words_nl[0]);
                     array_push($lines, implode(' ', $c_words));
-                    
+
                     $nl_num = count($words_nl) - 1;
                     for ($j = 1; $j < $nl_num; $j++) {
                         array_push($lines, $words_nl[$j]);
                     }
-                    
-                    $c_words = array($words_nl[$nl_num]);
+
+                    $c_words = [$words_nl[$nl_num]];
                     $c_chars = mb_strlen($words_nl[$nl_num]) + 1;
                 } else {
                     array_push($c_words, $words[$i]);
@@ -444,37 +448,37 @@ class Glyphs extends Model
                 }
             } else {
                 array_push($lines, implode(' ', $c_words));
-                $c_words = array($words[$i]);
+                $c_words = [$words[$i]];
                 $c_chars = $w_len;
             }
         }
         array_push($lines, implode(' ', $c_words));
-        
+
         $maxLine = count($lines);
-        $output  = '';
-        
+        $output = '';
+
         for ($j = $maxLine - 1; $j >= 0; $j--) {
-            $output .= $lines[$j] . "\n";
+            $output .= $lines[$j]."\n";
         }
-        
+
         $output = rtrim($output);
-        
+
         $output = $this->preConvert($output);
         if ($hindo) {
-            $nums   = array(
-                '0', '1', '2', '3', '4', 
-                '5', '6', '7', '8', '9'
-            );
-            $arNums = array(
+            $nums = [
+                '0', '1', '2', '3', '4',
+                '5', '6', '7', '8', '9',
+            ];
+            $arNums = [
                 '٠', '١', '٢', '٣', '٤',
-                '٥', '٦', '٧', '٨', '٩'
-            );
-            
+                '٥', '٦', '٧', '٨', '٩',
+            ];
+
             foreach ($nums as $k => $v) {
                 $p_nums[$k] = '/'.$v.'/ui';
             }
             $output = preg_replace($p_nums, $arNums, $output);
-            
+
             foreach ($arNums as $k => $v) {
                 $p_arNums[$k] = '/([a-z-\d]+)'.$v.'/ui';
             }
@@ -482,7 +486,7 @@ class Glyphs extends Model
                 $r_nums[$k] = '${1}'.$v;
             }
             $output = preg_replace($p_arNums, $r_nums, $output);
-            
+
             foreach ($arNums as $k => $v) {
                 $p_arNums[$k] = '/'.$v.'([a-z-\d]+)/ui';
             }
@@ -494,44 +498,44 @@ class Glyphs extends Model
 
         return $output;
     }
-    
+
     /**
-     * Decode all HTML entities (including numerical ones) to regular UTF-8 bytes. 
-     * Double-escaped entities will only be decoded once 
+     * Decode all HTML entities (including numerical ones) to regular UTF-8 bytes.
+     * Double-escaped entities will only be decoded once
      * ("&amp;lt;" becomes "&lt;", not "<").
-     *                   
+     *
      * @param string $text    The text to decode entities in.
      * @param array  $exclude An array of characters which should not be decoded.
      *                        For example, array('<', '&', '"'). This affects
      *                        both named and numerical entities.
-     *                        
-     * @return string           
+     *
+     * @return string
      */
-    protected function decodeEntities($text, $exclude = array())
+    protected function decodeEntities($text, $exclude = [])
     {
         static $table;
-        
+
         // We store named entities in a table for quick processing.
         if (!isset($table)) {
             // Get all named HTML entities.
             $table = array_flip(get_html_translation_table(HTML_ENTITIES));
-            
+
             // PHP gives us ISO-8859-1 data, we need UTF-8.
             $table = array_map('utf8_encode', $table);
-            
+
             // Add apostrophe (XML)
             $table['&apos;'] = "'";
         }
         $newtable = array_diff($table, $exclude);
-        
-        // Use a regexp to select all entities in one pass, to avoid decoding 
+
+        // Use a regexp to select all entities in one pass, to avoid decoding
         // double-escaped entities twice.
-        //return preg_replace('/&(#x?)?([A-Za-z0-9]+);/e', 
-        //                    '$this->decodeEntities2("$1", "$2", "$0", $newtable, 
+        //return preg_replace('/&(#x?)?([A-Za-z0-9]+);/e',
+        //                    '$this->decodeEntities2("$1", "$2", "$0", $newtable,
         //                                             $exclude)', $text);
 
         $pieces = explode('&', $text);
-        $text   = array_shift($pieces);
+        $text = array_shift($pieces);
         foreach ($pieces as $piece) {
             if ($piece[0] == '#') {
                 if ($piece[1] == 'x') {
@@ -542,27 +546,28 @@ class Glyphs extends Model
             } else {
                 $one = '';
             }
-            $end   = mb_strpos($piece, ';');
+            $end = mb_strpos($piece, ';');
             $start = mb_strlen($one);
-            
-            $two   = mb_substr($piece, $start, $end - $start);
-            $zero  = '&'.$one.$two.';';
+
+            $two = mb_substr($piece, $start, $end - $start);
+            $zero = '&'.$one.$two.';';
             $text .= $this->decodeEntities2($one, $two, $zero, $newtable, $exclude).
-                     mb_substr($piece, $end+1);
+                     mb_substr($piece, $end + 1);
         }
+
         return $text;
     }
-    
+
     /**
-     * Helper function for decodeEntities
-     * 
-     * @param string $prefix    Prefix      
-     * @param string $codepoint Codepoint         
-     * @param string $original  Original        
-     * @param array  &$table    Store named entities in a table      
+     * Helper function for decodeEntities.
+     *
+     * @param string $prefix    Prefix
+     * @param string $codepoint Codepoint
+     * @param string $original  Original
+     * @param array  &$table    Store named entities in a table
      * @param array  &$exclude  An array of characters which should not be decoded
-     * 
-     * @return string                  
+     *
+     * @return string
      */
     protected function decodeEntities2(
         $prefix, $codepoint, $original, &$table, &$exclude
@@ -575,29 +580,29 @@ class Glyphs extends Model
                 return $original;
             }
         }
-        
+
         // Hexadecimal numerical entity
         if ($prefix == '#x') {
             $codepoint = base_convert($codepoint, 16, 10);
         }
-        
+
         // Encode codepoint as UTF-8 bytes
         if ($codepoint < 0x80) {
             $str = chr($codepoint);
         } elseif ($codepoint < 0x800) {
-            $str = chr(0xC0 | ($codepoint >> 6)) . 
+            $str = chr(0xC0 | ($codepoint >> 6)).
                    chr(0x80 | ($codepoint & 0x3F));
         } elseif ($codepoint < 0x10000) {
-            $str = chr(0xE0 | ($codepoint >> 12)) . 
-                   chr(0x80 | (($codepoint >> 6) & 0x3F)) . 
+            $str = chr(0xE0 | ($codepoint >> 12)).
+                   chr(0x80 | (($codepoint >> 6) & 0x3F)).
                    chr(0x80 | ($codepoint & 0x3F));
         } elseif ($codepoint < 0x200000) {
-            $str = chr(0xF0 | ($codepoint >> 18)) . 
-                   chr(0x80 | (($codepoint >> 12) & 0x3F)) . 
-                   chr(0x80 | (($codepoint >> 6) & 0x3F)) . 
+            $str = chr(0xF0 | ($codepoint >> 18)).
+                   chr(0x80 | (($codepoint >> 12) & 0x3F)).
+                   chr(0x80 | (($codepoint >> 6) & 0x3F)).
                    chr(0x80 | ($codepoint & 0x3F));
         }
-        
+
         // Check for excluded characters
         if (in_array($str, $exclude)) {
             return $original;
@@ -606,4 +611,3 @@ class Glyphs extends Model
         }
     }
 }
-

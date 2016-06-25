@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
-
 namespace Buzzylab\Aip\Models;
 
 use Buzzylab\Aip\Model;
@@ -16,37 +15,39 @@ use Buzzylab\Aip\Model;
 class Gender extends Model
 {
     /**
-     * Loads initialize values
+     * Loads initialize values.
      *
      * @ignore
      */
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     /**
-     * Check if Arabic word is feminine
-     *          
-     * @param string $str Arabic word you would like to check if it is 
+     * Check if Arabic word is feminine.
+     *
+     * @param string $str Arabic word you would like to check if it is
      *                    feminine
-     *                    
-     * @return boolean Return true if input Arabic word is feminine
+     *
+     * @return bool Return true if input Arabic word is feminine
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function isFemale($str)
     {
         $female = false;
-        
+
         $words = explode(' ', $str);
-        $str   = $words[0];
+        $str = $words[0];
 
-        $str = str_replace(['أ','إ','آ'], 'ا', $str);
+        $str = str_replace(['أ', 'إ', 'آ'], 'ا', $str);
 
-        $last       = mb_substr($str, -1, 1, 'UTF-8');
+        $last = mb_substr($str, -1, 1, 'UTF-8');
         $beforeLast = mb_substr($str, -2, 1, 'UTF-8');
 
         if ($last == 'ة' || $last == 'ه' || $last == 'ى' || $last == 'ا' || ($last == 'ء' && $beforeLast == 'ا')) {
-
             $female = true;
-        } elseif (preg_match("/^[اإ].{2}ا.$/u", $str) || preg_match("/^[إا].ت.ا.+$/u", $str)) {
+        } elseif (preg_match('/^[اإ].{2}ا.$/u', $str) || preg_match('/^[إا].ت.ا.+$/u', $str)) {
             // الأسماء على وزن إفتعال و إفعال
             $female = true;
         } else {
@@ -63,10 +64,11 @@ class Gender extends Model
         return $female;
     }
 
-
     /**
-     * Check if Arabic word is note feminine
+     * Check if Arabic word is note feminine.
+     *
      * @param $str
+     *
      * @return bool
      */
     public function isMale($str)
