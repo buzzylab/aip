@@ -34,6 +34,24 @@ class AipServiceProvider extends ServiceProvider
         {
             return "<?php echo Arabic::getCharset($value); ?>";
         });
+
+        // Compress
+        Blade::directive('compress', function($value)
+        {
+            return "<?php echo Arabic::compress($value); ?>";
+        });
+
+        // Glyphs
+        Blade::directive('glyphs', function($value)
+        {
+            return "<?php echo Arabic::utf8Glyphs($value); ?>";
+        });
+
+        // Identify
+        Blade::directive('identify', function($value)
+        {
+            return "<?php echo Arabic::identify($value); ?>";
+        });
     }
 
     /**
