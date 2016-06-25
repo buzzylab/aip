@@ -57,6 +57,8 @@ A simple PHP API extension that's provide arabic tools for PHP . [https://github
 $ composer require buzzylab/aip
 ```
 
+Or Add `"buzzylab/aip": "~1.0.*"` to `composer require` :
+
 ```json
 {
     "require": {
@@ -65,7 +67,10 @@ $ composer require buzzylab/aip
 }
 ```
 
+#### Native Integration
+
 ```php
+
 <?php
 require 'vendor/autoload.php';
 
@@ -75,20 +80,20 @@ $arabic = new Arabic();
 
 ```
 
-### Without Composer
+#### Laravel Integration
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Arabic.php](https://github.com/buzzylab/aip/blob/master/src/Arabic.php) from the repo and save the file into your project path somewhere.
+After installing the package, open your [Laravel](https://laravel.com) config file located at `config/app.php` and add the following service provider to the `providers` array:
 
 ```php
-<?php
-require 'path/to/Arabic.php';
-
-use Buzzylab\Aip\Arabic;
-
-$arabic = new Arabic();
-
+Buzzylab\Aip\Laravel\AipServiceProvider::class
 ```
 
+And add the following Facade to the `aliases` array
+
+```php
+'Arabic'  => Buzzylab\Aip\Laravel\Facades\AipFacade::class 
+
+```
 
 ## Change log
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
