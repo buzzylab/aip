@@ -8,20 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
-
 namespace Buzzylab\Aip;
 
-class Model {
-
+class Model
+{
     /**
-     * Get json data from json file
-     * 
+     * Get json data from json file.
+     *
      * @param $file
+     *
      * @return mixed
      */
     protected function getJsonData($file)
     {
         return json_decode(file_get_contents($file));
     }
-
 }

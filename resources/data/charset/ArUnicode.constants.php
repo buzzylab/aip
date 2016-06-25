@@ -3,20 +3,19 @@
 /**
  * Function to convert the code points to entites.
  *
- * @param integer $u HTML entity number for Arabic character
+ * @param int $u HTML entity number for Arabic character
  *
  * @return string Returns convert Arabic character encoding
  *                from HTML entities to UTF-8
  */
-
 if (!function_exists('unichr')) {
     function unichr($u)
     {
-        return mb_convert_encoding('&#' . intval($u) . ';', 'UTF-8', 'HTML-ENTITIES');
+        return mb_convert_encoding('&#'.intval($u).';', 'UTF-8', 'HTML-ENTITIES');
     }
 }
 
-/**
+/*
  * A map of Arabic attached forms of characters to original characters
  */
 $ligature_map = [
@@ -138,102 +137,102 @@ $ligature_map = [
     unichr(0xFEF1) => unichr(0x064A),
     unichr(0xFEF3) => unichr(0x064A),
     unichr(0xFEF4) => unichr(0x064A),
-    unichr(0xFEF2) => unichr(0x064A)
+    unichr(0xFEF2) => unichr(0x064A),
 ];
 
 
-/**
+/*
  * Arabic unicode code points
  **/
 $char_names = [
-    'COMMA' => unichr(0x060C),
-    'SEMICOLON' => unichr(0x061B),
-    'QUESTION' => unichr(0x061F),
-    'HAMZA' => unichr(0x0621),
-    'ALEF_MADDA' => unichr(0x0622),
+    'COMMA'            => unichr(0x060C),
+    'SEMICOLON'        => unichr(0x061B),
+    'QUESTION'         => unichr(0x061F),
+    'HAMZA'            => unichr(0x0621),
+    'ALEF_MADDA'       => unichr(0x0622),
     'ALEF_HAMZA_ABOVE' => unichr(0x0623),
-    'WAW_HAMZA' => unichr(0x0624),
+    'WAW_HAMZA'        => unichr(0x0624),
     'ALEF_HAMZA_BELOW' => unichr(0x0625),
-    'YEH_HAMZA' => unichr(0x0626),
-    'ALEF' => unichr(0x0627),
-    'BEH' => unichr(0x0628),
-    'TEH_MARBUTA' => unichr(0x0629),
-    'TEH' => unichr(0x062a),
-    'THEH' => unichr(0x062b),
-    'JEEM' => unichr(0x062c),
-    'HAH' => unichr(0x062d),
-    'KHAH' => unichr(0x062e),
-    'DAL' => unichr(0x062f),
-    'THAL' => unichr(0x0630),
-    'REH' => unichr(0x0631),
-    'ZAIN' => unichr(0x0632),
-    'SEEN' => unichr(0x0633),
-    'SHEEN' => unichr(0x0634),
-    'SAD' => unichr(0x0635),
-    'DAD' => unichr(0x0636),
-    'TAH' => unichr(0x0637),
-    'ZAH' => unichr(0x0638),
-    'AIN' => unichr(0x0639),
-    'GHAIN' => unichr(0x063a),
-    'TATWEEL' => unichr(0x0640),
-    'FEH' => unichr(0x0641),
-    'QAF' => unichr(0x0642),
-    'KAF' => unichr(0x0643),
-    'LAM' => unichr(0x0644),
-    'MEEM' => unichr(0x0645),
-    'NOON' => unichr(0x0646),
-    'HEH' => unichr(0x0647),
-    'WAW' => unichr(0x0648),
-    'ALEF_MAKSURA' => unichr(0x0649),
-    'YEH' => unichr(0x064a),
-    'MADDA_ABOVE' => unichr(0x0653),
-    'HAMZA_ABOVE' => unichr(0x0654),
-    'HAMZA_BELOW' => unichr(0x0655),
-    'ZERO' => unichr(0x0660),
-    'ONE' => unichr(0x0661),
-    'TWO' => unichr(0x0662),
-    'THREE' => unichr(0x0663),
-    'FOUR' => unichr(0x0664),
-    'FIVE' => unichr(0x0665),
-    'SIX' => unichr(0x0666),
-    'SEVEN' => unichr(0x0667),
-    'EIGHT' => unichr(0x0668),
-    'NINE' => unichr(0x0669),
-    'PERCENT' => unichr(0x066a),
-    'DECIMAL' => unichr(0x066b),
-    'THOUSANDS' => unichr(0x066c),
-    'STAR' => unichr(0x066d),
-    'MINI_ALEF' => unichr(0x0670),
-    'ALEF_WASLA' => unichr(0x0671),
-    'FULL_STOP' => unichr(0x06d4),
-    'BYTE_ORDER_MARK' => unichr(0xfeff),
+    'YEH_HAMZA'        => unichr(0x0626),
+    'ALEF'             => unichr(0x0627),
+    'BEH'              => unichr(0x0628),
+    'TEH_MARBUTA'      => unichr(0x0629),
+    'TEH'              => unichr(0x062a),
+    'THEH'             => unichr(0x062b),
+    'JEEM'             => unichr(0x062c),
+    'HAH'              => unichr(0x062d),
+    'KHAH'             => unichr(0x062e),
+    'DAL'              => unichr(0x062f),
+    'THAL'             => unichr(0x0630),
+    'REH'              => unichr(0x0631),
+    'ZAIN'             => unichr(0x0632),
+    'SEEN'             => unichr(0x0633),
+    'SHEEN'            => unichr(0x0634),
+    'SAD'              => unichr(0x0635),
+    'DAD'              => unichr(0x0636),
+    'TAH'              => unichr(0x0637),
+    'ZAH'              => unichr(0x0638),
+    'AIN'              => unichr(0x0639),
+    'GHAIN'            => unichr(0x063a),
+    'TATWEEL'          => unichr(0x0640),
+    'FEH'              => unichr(0x0641),
+    'QAF'              => unichr(0x0642),
+    'KAF'              => unichr(0x0643),
+    'LAM'              => unichr(0x0644),
+    'MEEM'             => unichr(0x0645),
+    'NOON'             => unichr(0x0646),
+    'HEH'              => unichr(0x0647),
+    'WAW'              => unichr(0x0648),
+    'ALEF_MAKSURA'     => unichr(0x0649),
+    'YEH'              => unichr(0x064a),
+    'MADDA_ABOVE'      => unichr(0x0653),
+    'HAMZA_ABOVE'      => unichr(0x0654),
+    'HAMZA_BELOW'      => unichr(0x0655),
+    'ZERO'             => unichr(0x0660),
+    'ONE'              => unichr(0x0661),
+    'TWO'              => unichr(0x0662),
+    'THREE'            => unichr(0x0663),
+    'FOUR'             => unichr(0x0664),
+    'FIVE'             => unichr(0x0665),
+    'SIX'              => unichr(0x0666),
+    'SEVEN'            => unichr(0x0667),
+    'EIGHT'            => unichr(0x0668),
+    'NINE'             => unichr(0x0669),
+    'PERCENT'          => unichr(0x066a),
+    'DECIMAL'          => unichr(0x066b),
+    'THOUSANDS'        => unichr(0x066c),
+    'STAR'             => unichr(0x066d),
+    'MINI_ALEF'        => unichr(0x0670),
+    'ALEF_WASLA'       => unichr(0x0671),
+    'FULL_STOP'        => unichr(0x06d4),
+    'BYTE_ORDER_MARK'  => unichr(0xfeff),
 
     //Diacritics
     'FATHATAN' => unichr(0x064B),
     'DAMMATAN' => unichr(0x064C),
     'KASRATAN' => unichr(0x064D),
-    'FATHA' => unichr(0x064E),
-    'DAMMA' => unichr(0x064F),
-    'KASRA' => unichr(0x0650),
-    'SHADDA' => unichr(0x0651),
-    'SUKUN' => unichr(0x0652),
+    'FATHA'    => unichr(0x064E),
+    'DAMMA'    => unichr(0x064F),
+    'KASRA'    => unichr(0x0650),
+    'SHADDA'   => unichr(0x0651),
+    'SUKUN'    => unichr(0x0652),
 
     'SMALL_ALEF' => unichr(0x0670),
-    'SMALL_WAW' => unichr(0x06E5),
-    'SMALL_YEH' => unichr(0x06E6),
+    'SMALL_WAW'  => unichr(0x06E5),
+    'SMALL_YEH'  => unichr(0x06E6),
 
     //Ligatures
-    'LAM_ALEF' => unichr(0xFEFb),
-    'LAM_ALEF_HAMZA_ABOVE' => unichr(0xFEF7),
-    'LAM_ALEF_HAMZA_BELOW' => unichr(0xFEF9),
-    'LAM_ALEF_MADDA_ABOVE' => unichr(0xFEF5),
-    'simple_LAM_ALEF' => unichr(0x0644) . unichr(0x064E) . unichr(0x0627),
-    'simple_LAM_ALEF_HAMZA_ABOVE' => unichr(0x0644) . unichr(0x0623),
-    'simple_LAM_ALEF_HAMZA_BELOW' => unichr(0x0644) . unichr(0x0625),
-    'simple_LAM_ALEF_MADDA_ABOVE' => unichr(0x0644) . unichr(0x0621) . unichr(0x064E) . unichr(0x0627)
+    'LAM_ALEF'                    => unichr(0xFEFb),
+    'LAM_ALEF_HAMZA_ABOVE'        => unichr(0xFEF7),
+    'LAM_ALEF_HAMZA_BELOW'        => unichr(0xFEF9),
+    'LAM_ALEF_MADDA_ABOVE'        => unichr(0xFEF5),
+    'simple_LAM_ALEF'             => unichr(0x0644).unichr(0x064E).unichr(0x0627),
+    'simple_LAM_ALEF_HAMZA_ABOVE' => unichr(0x0644).unichr(0x0623),
+    'simple_LAM_ALEF_HAMZA_BELOW' => unichr(0x0644).unichr(0x0625),
+    'simple_LAM_ALEF_MADDA_ABOVE' => unichr(0x0644).unichr(0x0621).unichr(0x064E).unichr(0x0627),
 ];
 
-/**
+/*
  * Arabic char groups
  **/
 $char_groups = [
@@ -242,115 +241,115 @@ $char_groups = [
         'ALEF', 'BEH', 'TEH', 'TEH_MARBUTA', 'THEH', 'JEEM', 'HAH', 'KHAH',
         'DAL', 'THAL', 'REH', 'ZAIN', 'SEEN', 'SHEEN', 'SAD', 'DAD', 'TAH', 'ZAH',
         'AIN', 'GHAIN', 'FEH', 'QAF', 'KAF', 'LAM', 'MEEM', 'NOON', 'HEH', 'WAW', 'YEH',
-        'HAMZA', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'WAW_HAMZA', 'ALEF_HAMZA_BELOW', 'YEH_HAMZA'
+        'HAMZA', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'WAW_HAMZA', 'ALEF_HAMZA_BELOW', 'YEH_HAMZA',
     ],
 
     'TASHKEEL' => [
-        'FATHATAN', 'DAMMATAN', 'KASRATAN', 'FATHA', 'DAMMA', 'KASRA', 'SUKUN', 'SHADDA'
+        'FATHATAN', 'DAMMATAN', 'KASRATAN', 'FATHA', 'DAMMA', 'KASRA', 'SUKUN', 'SHADDA',
     ],
 
     'HARAKAT' => [
-        'FATHATAN', 'DAMMATAN', 'KASRATAN', 'FATHA', 'DAMMA', 'KASRA', 'SUKUN'
+        'FATHATAN', 'DAMMATAN', 'KASRATAN', 'FATHA', 'DAMMA', 'KASRA', 'SUKUN',
     ],
 
 
     'SHORTHARAKAT' => [
-        'FATHA', 'DAMMA', 'KASRA', 'SUKUN'
+        'FATHA', 'DAMMA', 'KASRA', 'SUKUN',
     ],
 
     'TANWIN' => [
-        'FATHATAN', 'DAMMATAN', 'KASRATAN'
+        'FATHATAN', 'DAMMATAN', 'KASRATAN',
     ],
 
     'LIGUATURES' => [
-        'LAM_ALEF', 'LAM_ALEF_HAMZA_ABOVE', 'LAM_ALEF_HAMZA_BELOW', 'LAM_ALEF_MADDA_ABOVE'
+        'LAM_ALEF', 'LAM_ALEF_HAMZA_ABOVE', 'LAM_ALEF_HAMZA_BELOW', 'LAM_ALEF_MADDA_ABOVE',
     ],
 
     'HAMZAT' => [
-        'HAMZA', 'WAW_HAMZA', 'YEH_HAMZA', 'HAMZA_ABOVE', 'HAMZA_BELOW', 'ALEF_HAMZA_BELOW', 'ALEF_HAMZA_ABOVE'
+        'HAMZA', 'WAW_HAMZA', 'YEH_HAMZA', 'HAMZA_ABOVE', 'HAMZA_BELOW', 'ALEF_HAMZA_BELOW', 'ALEF_HAMZA_ABOVE',
     ],
 
     'ALEFAT' => [
-        'ALEF', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'ALEF_HAMZA_BELOW', 'ALEF_WASLA', 'ALEF_MAKSURA', 'SMALL_ALEF'
+        'ALEF', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'ALEF_HAMZA_BELOW', 'ALEF_WASLA', 'ALEF_MAKSURA', 'SMALL_ALEF',
     ],
 
     'WEAK' => [
-        'ALEF', 'WAW', 'YEH', 'ALEF_MAKSURA'
+        'ALEF', 'WAW', 'YEH', 'ALEF_MAKSURA',
     ],
 
-    'YEHLIKE' => ['YEH', 'YEH_HAMZA', 'ALEF_MAKSURA', 'SMALL_YEH'
+    'YEHLIKE' => ['YEH', 'YEH_HAMZA', 'ALEF_MAKSURA', 'SMALL_YEH',
     ],
 
     'WAWLIKE' => [
-        'WAW', 'WAW_HAMZA', 'SMALL_WAW'
+        'WAW', 'WAW_HAMZA', 'SMALL_WAW',
     ],
 
     'TEHLIKE' => [
-        'TEH', 'TEH_MARBUTA'
+        'TEH', 'TEH_MARBUTA',
     ],
 
     'SMALL' => [
-        'SMALL_ALEF', 'SMALL_WAW', 'SMALL_YEH'
+        'SMALL_ALEF', 'SMALL_WAW', 'SMALL_YEH',
     ],
 
     'MOON' => [
-        'HAMZA', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'ALEF_HAMZA_BELOW', 'ALEF', 'BEH', 'JEEM', 'HAH', 'KHAH', 'AIN', 'GHAIN', 'FEH', 'QAF', 'KAF', 'MEEM', 'HEH', 'WAW', 'YEH'
+        'HAMZA', 'ALEF_MADDA', 'ALEF_HAMZA_ABOVE', 'ALEF_HAMZA_BELOW', 'ALEF', 'BEH', 'JEEM', 'HAH', 'KHAH', 'AIN', 'GHAIN', 'FEH', 'QAF', 'KAF', 'MEEM', 'HEH', 'WAW', 'YEH',
     ],
 
     'SUN' => [
-        'TEH', 'THEH', 'DAL', 'THAL', 'REH', 'ZAIN', 'SEEN', 'SHEEN', 'SAD', 'DAD', 'TAH', 'ZAH', 'LAM', 'NOON'
+        'TEH', 'THEH', 'DAL', 'THAL', 'REH', 'ZAIN', 'SEEN', 'SHEEN', 'SAD', 'DAD', 'TAH', 'ZAH', 'LAM', 'NOON',
     ],
 ];
 
-/**
+/*
  * Arabic char names
  **/
 $char_ar_names = [
-    
-    'ALEF' => 'ألف',
-    'BEH' => 'باء',
-    'TEH' => 'تاء',
-    'TEH_MARBUTA' => 'تاء مربوطة',
-    'THEH' => 'ثاء',
-    'JEEM' => 'جيم',
-    'HAH' => 'حاء',
-    'KHAH' => 'خاء',
-    'DAL' => 'دال',
-    'THAL' => 'ذال',
-    'REH' => 'راء',
-    'ZAIN' => 'زاي',
-    'SEEN' => 'سين',
-    'SHEEN' => 'شين',
-    'SAD' => 'صاد',
-    'DAD' => 'ضاد',
-    'TAH' => 'طاء',
-    'ZAH' => 'ظاء',
-    'AIN' => 'عين',
-    'GHAIN' => 'غين',
-    'FEH' => 'فاء',
-    'QAF' => 'قاف',
-    'KAF' => 'كاف',
-    'LAM' => 'لام',
-    'MEEM' => 'ميم',
-    'NOON' => 'نون',
-    'HEH' => 'هاء',
-    'WAW' => 'واو',
-    'YEH' => 'ياء',
-    'HAMZA' => 'همزة',
 
-    'TATWEEL' => 'تطويل',
-    'ALEF_MADDA' => 'ألف ممدودة',
-    'ALEF_MAKSURA' => 'ألف مقصورة',
+    'ALEF'        => 'ألف',
+    'BEH'         => 'باء',
+    'TEH'         => 'تاء',
+    'TEH_MARBUTA' => 'تاء مربوطة',
+    'THEH'        => 'ثاء',
+    'JEEM'        => 'جيم',
+    'HAH'         => 'حاء',
+    'KHAH'        => 'خاء',
+    'DAL'         => 'دال',
+    'THAL'        => 'ذال',
+    'REH'         => 'راء',
+    'ZAIN'        => 'زاي',
+    'SEEN'        => 'سين',
+    'SHEEN'       => 'شين',
+    'SAD'         => 'صاد',
+    'DAD'         => 'ضاد',
+    'TAH'         => 'طاء',
+    'ZAH'         => 'ظاء',
+    'AIN'         => 'عين',
+    'GHAIN'       => 'غين',
+    'FEH'         => 'فاء',
+    'QAF'         => 'قاف',
+    'KAF'         => 'كاف',
+    'LAM'         => 'لام',
+    'MEEM'        => 'ميم',
+    'NOON'        => 'نون',
+    'HEH'         => 'هاء',
+    'WAW'         => 'واو',
+    'YEH'         => 'ياء',
+    'HAMZA'       => 'همزة',
+
+    'TATWEEL'          => 'تطويل',
+    'ALEF_MADDA'       => 'ألف ممدودة',
+    'ALEF_MAKSURA'     => 'ألف مقصورة',
     'ALEF_HAMZA_ABOVE' => 'همزة على الألف',
-    'WAW_HAMZA' => 'همزة على الواو',
+    'WAW_HAMZA'        => 'همزة على الواو',
     'ALEF_HAMZA_BELOW' => 'همزة تحت الألف',
-    'YEH_HAMZA' => 'همزة على الياء',
-    'FATHATAN' => 'فتحتان',
-    'DAMMATAN' => 'ضمتان',
-    'KASRATAN' => 'كسرتان',
-    'FATHA' => 'فتحة',
-    'DAMMA' => 'ضمة',
-    'KASRA' => 'كسرة',
-    'SHADDA' => 'شدة',
-    'SUKUN' => 'سكون',
+    'YEH_HAMZA'        => 'همزة على الياء',
+    'FATHATAN'         => 'فتحتان',
+    'DAMMATAN'         => 'ضمتان',
+    'KASRATAN'         => 'كسرتان',
+    'FATHA'            => 'فتحة',
+    'DAMMA'            => 'ضمة',
+    'KASRA'            => 'كسرة',
+    'SHADDA'           => 'شدة',
+    'SUKUN'            => 'سكون',
 ];

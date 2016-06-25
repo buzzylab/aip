@@ -8,41 +8,40 @@
  * For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
-
 namespace Buzzylab\Aip\Models;
 
 use Buzzylab\Aip\Model;
 
 class Query extends Model
 {
-    private $_fields          = array();
-    private $_lexPatterns     = array();
-    private $_lexReplacements = array();
-    private $_mode            = 0;
+    private $_fields = [];
+    private $_lexPatterns = [];
+    private $_lexReplacements = [];
+    private $_mode = 0;
 
     /**
-     * Loads initialize values
-     */         
+     * Loads initialize values.
+     */
     public function __construct()
     {
         $xml = simplexml_load_file(dirname(__FILE__).'/../../resources/data/ArQuery.xml');
-         
-        foreach ($xml->xpath("//preg_replace[@function='__construct']/pair")
-                 as $pair) { 
 
-                 array_push($this->_lexPatterns, (string)$pair->search); 
-            array_push($this->_lexReplacements, (string)$pair->replace); 
+        foreach ($xml->xpath("//preg_replace[@function='__construct']/pair")
+                 as $pair) {
+            array_push($this->_lexPatterns, (string) $pair->search);
+            array_push($this->_lexReplacements, (string) $pair->replace);
         }
     }
-    
+
     /**
-     * Setting value for $_fields array
-     *      
+     * Setting value for $_fields array.
+     *
      * @param array $arrConfig Name of the fields that SQL statement will search
-     *                         them (in array format where items are those 
+     *                         them (in array format where items are those
      *                         fields names)
-     *                       
+     *
      * @return object $this to build a fluent interface
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function setArrFields($arrConfig)
@@ -51,17 +50,18 @@ class Query extends Model
             // Get _fields array
             $this->_fields = $arrConfig;
         }
-        
+
         return $this;
     }
-    
+
     /**
-     * Setting value for $_fields array
-     *      
+     * Setting value for $_fields array.
+     *
      * @param string $strConfig Name of the fields that SQL statement will search
      *                          them (in string format using comma as delimated)
-     *                          
+     *
      * @return object $this to build a fluent interface
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function setStrFields($strConfig)
@@ -73,31 +73,33 @@ class Query extends Model
 
         return $this;
     }
-    
+
     /**
      * Setting $mode propority value that refer to search mode
-     * [0 for OR logic | 1 for AND logic]
-     *      
-     * @param integer $mode Setting value to be saved in the $mode propority
-     *      
+     * [0 for OR logic | 1 for AND logic].
+     *
+     * @param int $mode Setting value to be saved in the $mode propority
+     *
      * @return object $this to build a fluent interface
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function setQueryMode($mode)
     {
-        if (in_array($mode, array('0', '1'))) {
+        if (in_array($mode, ['0', '1'])) {
             // Set search mode [0 for OR logic | 1 for AND logic]
             $this->_mode = $mode;
         }
-        
+
         return $this;
     }
-    
+
     /**
-     * Getting $mode propority value that refer to search mode 
-     * [0 for OR logic | 1 for AND logic]
-     *      
-     * @return integer Value of $mode properity
+     * Getting $mode propority value that refer to search mode
+     * [0 for OR logic | 1 for AND logic].
+     *
+     * @return int Value of $mode properity
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function getQueryMode()
@@ -105,63 +107,66 @@ class Query extends Model
         // Get search mode value [0 for OR logic | 1 for AND logic]
         return $this->_mode;
     }
-    
+
     /**
-     * Getting values of $_fields Array in array format
-     *      
+     * Getting values of $_fields Array in array format.
+     *
      * @return array Value of $_fields array in Array format
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function getArrFields()
     {
         $fields = $this->_fields;
-        
+
         return $fields;
     }
-    
+
     /**
-     * Getting values of $_fields array in String format (comma delimated)
-     *      
+     * Getting values of $_fields array in String format (comma delimated).
+     *
      * @return string Values of $_fields array in String format (comma delimated)
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function getStrFields()
     {
         $fields = implode(',', $this->_fields);
-        
+
         return $fields;
     }
-    
+
     /**
-     * Build WHERE section of the SQL statement using defind lex's rules, search 
-     * mode [AND | OR], and handle also phrases (inclosed by "") using normal 
+     * Build WHERE section of the SQL statement using defind lex's rules, search
+     * mode [AND | OR], and handle also phrases (inclosed by "") using normal
      * LIKE condition to match it as it is.
-     *      
+     *
      * @param string $arg String that user search for in the database table
-     *                    
-     * @return string The WHERE section in SQL statement 
+     *
+     * @return string The WHERE section in SQL statement
      *                (MySQL database engine format)
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function getWhereCondition($arg)
     {
         $sql = '';
-        
+
         //$arg = mysql_real_escape_string($arg);
-        $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
-        $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
+        $search = ['\\',  "\x00", "\n",  "\r",  "'",  '"', "\x1a"];
+        $replace = ['\\\\', '\\0', '\\n', '\\r', "\'", '\"', '\\Z'];
         $arg = str_replace($search, $replace, $arg);
-        
+
         // Check if there are phrases in $arg should handle as it is
-        $phrase = explode("\"", $arg);
-        
+        $phrase = explode('"', $arg);
+
         if (count($phrase) > 2) {
             // Re-init $arg variable
             // (It will contain the rest of $arg except phrases).
             $arg = '';
-            
+
             for ($i = 0; $i < count($phrase); $i++) {
-                $subPhrase = $phrase[$i]; 
+                $subPhrase = $phrase[$i];
                 if ($i % 2 == 0 && $subPhrase != '') {
                     // Re-build $arg variable after restricting phrases
                     $arg .= $subPhrase;
@@ -171,84 +176,87 @@ class Query extends Model
                 }
             }
         }
-        
+
         // Handle normal $arg using lex's and regular expresion
         $words = preg_split('/\s+/', trim($arg));
-        
+
         foreach ($words as $word) {
             //if (is_numeric($word) || strlen($word) > 2) {
                 // Take off all the punctuation
                 //$word = preg_replace("/\p{P}/", '', $word);
-                $exclude = array('(', ')', '[', ']', '{', '}', ',', ';', ':', 
-                                 '?', '!', '،', '؛', '؟');
-                $word    = str_replace($exclude, '', $word);
+                $exclude = ['(', ')', '[', ']', '{', '}', ',', ';', ':',
+                                 '?', '!', '،', '؛', '؟', ];
+            $word = str_replace($exclude, '', $word);
 
-                $this->wordCondition[] = $this->getWordRegExp($word);
+            $this->wordCondition[] = $this->getWordRegExp($word);
             //}
         }
-        
+
         if (!empty($this->wordCondition)) {
             if ($this->_mode == 0) {
-                $sql = '(' . implode(') OR (', $this->wordCondition) . ')';
+                $sql = '('.implode(') OR (', $this->wordCondition).')';
             } elseif ($this->_mode == 1) {
-                $sql = '(' . implode(') AND (', $this->wordCondition) . ')';
+                $sql = '('.implode(') AND (', $this->wordCondition).')';
             }
         }
-        
+
         return $sql;
     }
-    
+
     /**
-     * Search condition in SQL format for one word in all defind fields using 
-     * REGEXP clause and lex's rules
-     *      
+     * Search condition in SQL format for one word in all defind fields using
+     * REGEXP clause and lex's rules.
+     *
      * @param string $arg String (one word) that you want to build a condition for
-     *      
+     *
      * @return string sub SQL condition (for internal use)
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     protected function getWordRegExp($arg)
     {
         $arg = $this->lex($arg);
         //$sql = implode(" REGEXP '$arg' OR ", $this->_fields) . " REGEXP '$arg'";
-        $sql = ' REPLACE(' . 
-               implode(", 'ـ', '') REGEXP '$arg' OR REPLACE(", $this->_fields) . 
+        $sql = ' REPLACE('.
+               implode(", 'ـ', '') REGEXP '$arg' OR REPLACE(", $this->_fields).
                ", 'ـ', '') REGEXP '$arg'";
 
-        
+
         return $sql;
     }
-    
+
     /**
-     * Search condition in SQL format for one word in all defind fields using 
-     * normal LIKE clause
-     *      
+     * Search condition in SQL format for one word in all defind fields using
+     * normal LIKE clause.
+     *
      * @param string $arg String (one word) that you want to build a condition for
-     *      
+     *
      * @return string sub SQL condition (for internal use)
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     protected function getWordLike($arg)
     {
-        $sql = implode(" LIKE '$arg' OR ", $this->_fields) . " LIKE '$arg'";
-        
+        $sql = implode(" LIKE '$arg' OR ", $this->_fields)." LIKE '$arg'";
+
         return $sql;
     }
-    
+
     /**
-     * Get more relevant order by section related to the user search keywords
-     *      
+     * Get more relevant order by section related to the user search keywords.
+     *
      * @param string $arg String that user search for in the database table
-     *                    
-     * @return string sub SQL ORDER BY section 
+     *
+     * @return string sub SQL ORDER BY section
+     *
      * @author Saleh AlMatrafe <saleh@saleh.cc>
      */
     public function getOrderBy($arg)
     {
         // Check if there are phrases in $arg should handle as it is
-        $phrase = explode("\"", $arg);
+        $phrase = explode('"', $arg);
         if (count($phrase) > 2) {
-            // Re-init $arg variable 
+            // Re-init $arg variable
             // (It will contain the rest of $arg except phrases).
             $arg = '';
             for ($i = 0; $i < count($phrase); $i++) {
@@ -261,59 +269,61 @@ class Query extends Model
                 }
             }
         }
-        
+
         // Handle normal $arg using lex's and regular expresion
         $words = explode(' ', $arg);
         foreach ($words as $word) {
             if ($word != '') {
-                $wordOrder[] = 'CASE WHEN ' . 
-                               $this->getWordRegExp($word) . 
+                $wordOrder[] = 'CASE WHEN '.
+                               $this->getWordRegExp($word).
                                ' THEN 1 ELSE 0 END';
             }
         }
-        
-        $order = '((' . implode(') + (', $wordOrder) . ')) DESC';
-        
+
+        $order = '(('.implode(') + (', $wordOrder).')) DESC';
+
         return $order;
     }
 
     /**
-     * This method will implement various regular expressin rules based on 
-     * pre-defined Arabic lexical rules
-     *      
+     * This method will implement various regular expressin rules based on
+     * pre-defined Arabic lexical rules.
+     *
      * @param string $arg String of one word user want to search for
-     *      
+     *
      * @return string Regular Expression format to be used in MySQL query statement
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     protected function lex($arg)
     {
         $arg = preg_replace($this->_lexPatterns, $this->_lexReplacements, $arg);
-        
+
         return $arg;
     }
-    
+
     /**
-     * Get most possible Arabic lexical forms for a given word
-     *      
+     * Get most possible Arabic lexical forms for a given word.
+     *
      * @param string $word String that user search for
-     *      
-     * @return string list of most possible Arabic lexical forms for a given word 
+     *
+     * @return string list of most possible Arabic lexical forms for a given word
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
-    protected function allWordForms($word) 
+    protected function allWordForms($word)
     {
-        $wordForms = array($word);
-        
-        $postfix1 = array('كم', 'كن', 'نا', 'ها', 'هم', 'هن');
-        $postfix2 = array('ين', 'ون', 'ان', 'ات', 'وا');
-        
+        $wordForms = [$word];
+
+        $postfix1 = ['كم', 'كن', 'نا', 'ها', 'هم', 'هن'];
+        $postfix2 = ['ين', 'ون', 'ان', 'ات', 'وا'];
+
         $len = mb_strlen($word);
 
         if (mb_substr($word, 0, 2) == 'ال') {
             $word = mb_substr($word, 2);
         }
-        
+
         $wordForms[] = $word;
 
         $str1 = mb_substr($word, 0, -1);
@@ -323,17 +333,17 @@ class Query extends Model
         $last1 = mb_substr($word, -1);
         $last2 = mb_substr($word, -2);
         $last3 = mb_substr($word, -3);
-        
+
         if ($len >= 6 && $last3 == 'تين') {
             $wordForms[] = $str3;
-            $wordForms[] = $str3 . 'ة';
-            $wordForms[] = $word . 'ة';
+            $wordForms[] = $str3.'ة';
+            $wordForms[] = $word.'ة';
         }
-        
+
         if ($len >= 6 && ($last3 == 'كما' || $last3 == 'هما')) {
             $wordForms[] = $str3;
-            $wordForms[] = $str3 . 'كما';
-            $wordForms[] = $str3 . 'هما';
+            $wordForms[] = $str3.'كما';
+            $wordForms[] = $str3.'هما';
         }
 
         if ($len >= 5 && in_array($last2, $postfix2)) {
@@ -342,7 +352,7 @@ class Query extends Model
             $wordForms[] = $str2.'تين';
 
             foreach ($postfix2 as $postfix) {
-                $wordForms[] = $str2 . $postfix;
+                $wordForms[] = $str2.$postfix;
             }
         }
 
@@ -354,7 +364,7 @@ class Query extends Model
             $wordForms[] = $str2.'هما';
 
             foreach ($postfix1 as $postfix) {
-                $wordForms[] = $str2 . $postfix;
+                $wordForms[] = $str2.$postfix;
             }
         }
 
@@ -363,52 +373,53 @@ class Query extends Model
             $wordForms[] = $str2;
         }
 
-        if (($len >= 4 && ($last1 == 'ة' || $last1 == 'ه' || $last1 == 'ت')) 
+        if (($len >= 4 && ($last1 == 'ة' || $last1 == 'ه' || $last1 == 'ت'))
             || ($len >= 5 && $last2 == 'ات')
         ) {
             $wordForms[] = $str1;
-            $wordForms[] = $str1 . 'ة';
-            $wordForms[] = $str1 . 'ه';
-            $wordForms[] = $str1 . 'ت';
-            $wordForms[] = $str1 . 'ات';
-        }
-        
-        if ($len >= 4 && $last1 == 'ى') {
-            $wordForms[] = $str1 . 'ا';
+            $wordForms[] = $str1.'ة';
+            $wordForms[] = $str1.'ه';
+            $wordForms[] = $str1.'ت';
+            $wordForms[] = $str1.'ات';
         }
 
-        $trans = array('أ' => 'ا', 'إ' => 'ا', 'آ' => 'ا');
+        if ($len >= 4 && $last1 == 'ى') {
+            $wordForms[] = $str1.'ا';
+        }
+
+        $trans = ['أ' => 'ا', 'إ' => 'ا', 'آ' => 'ا'];
         foreach ($wordForms as $word) {
             $normWord = strtr($word, $trans);
             if ($normWord != $word) {
                 $wordForms[] = $normWord;
             }
         }
-        
+
         $wordForms = array_unique($wordForms);
-        
+
         return $wordForms;
     }
-    
+
     /**
-     * Get most possible Arabic lexical forms of user search keywords
-     *      
+     * Get most possible Arabic lexical forms of user search keywords.
+     *
      * @param string $arg String that user search for
-     *                    
-     * @return string list of most possible Arabic lexical forms for given keywords 
+     *
+     * @return string list of most possible Arabic lexical forms for given keywords
+     *
      * @author Khaled Al-Sham'aa <khaled@ar-php.org>
      */
     public function allForms($arg)
     {
-        $wordForms = array();
-        $words     = explode(' ', $arg);
-        
+        $wordForms = [];
+        $words = explode(' ', $arg);
+
         foreach ($words as $word) {
             $wordForms = array_merge($wordForms, $this->allWordForms($word));
         }
-        
+
         $str = implode(' ', $wordForms);
-        
+
         return $str;
     }
 }

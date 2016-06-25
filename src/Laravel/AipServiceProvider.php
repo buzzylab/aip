@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class AipServiceProvider extends ServiceProvider
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function boot()
     {
@@ -17,7 +17,7 @@ class AipServiceProvider extends ServiceProvider
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function register()
     {
@@ -26,36 +26,31 @@ class AipServiceProvider extends ServiceProvider
         });
     }
 
-
     protected function registerBladeDirectives()
     {
         // Charset
-        Blade::directive('charset', function($value)
-        {
+        Blade::directive('charset', function ($value) {
             return "<?php echo Arabic::getCharset($value); ?>";
         });
 
         // Compress
-        Blade::directive('compress', function($value)
-        {
+        Blade::directive('compress', function ($value) {
             return "<?php echo Arabic::compress($value); ?>";
         });
 
         // Glyphs
-        Blade::directive('glyphs', function($value)
-        {
+        Blade::directive('glyphs', function ($value) {
             return "<?php echo Arabic::utf8Glyphs($value); ?>";
         });
 
         // Identify
-        Blade::directive('identify', function($value)
-        {
+        Blade::directive('identify', function ($value) {
             return "<?php echo Arabic::identify($value); ?>";
         });
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function provides()
     {
