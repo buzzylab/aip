@@ -4,6 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/buzzylab/aip/downloads)](https://packagist.org/packages/buzzylab/aip)
 [![Latest Unstable Version](https://poser.pugx.org/buzzylab/aip/v/unstable)](https://packagist.org/packages/buzzylab/aip)
 [![License](https://poser.pugx.org/buzzylab/aip/license)](https://packagist.org/packages/buzzylab/aip)
+[![StyleCI](https://styleci.io/repos/58194820/shield)](https://styleci.io/repos/58194820)
 
 A simple PHP API extension that's provide arabic tools for PHP . [https://github.com/buzzylab/aip](https://github.com/buzzylab/aip)
 
