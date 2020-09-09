@@ -14,17 +14,11 @@
             "email": "maherbusnes@gmail.com",
             "homepage": "http://maherelgamil.com",
             "role": "Developer"
-        },
-        {
-            "name": "Khaled Al-Sham'aa",
-            "email": "khaled@ar-php.org",
-            "homepage": "http://ar-php.org",
-            "role": "Developer"
         }
     ],
     "require": {
-        "php" : ">=5.5",
-        "illuminate/support": "~6.0"
+        "php": "^7.3.0",
+        "illuminate/support": "^8.0"
     },
     "autoload": {
         "psr-4": {
